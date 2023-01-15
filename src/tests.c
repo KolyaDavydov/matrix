@@ -175,7 +175,7 @@ START_TEST(tc_sum_matrix_2) {
   matrix_t matrix1, matrix2, result;
   s21_create_matrix(2, 3, &matrix1);
   s21_create_matrix(3, 3, &matrix2);
-  s21_create_matrix(3, 3, &result);
+  // s21_create_matrix(3, 3, &result);
   int ret = s21_sum_matrix(&matrix1, &matrix2, &result);
   ck_assert_int_eq(ret, 2);
   s21_remove_matrix(&result);
@@ -212,25 +212,24 @@ END_TEST
 START_TEST(tc_sum_matrix_4) {
   matrix_t matrix1, matrix2, result;
   matrix1.matrix = NULL;
-  // s21_create_matrix(2, 3, &matrix1);
+  s21_create_matrix(2, 3, &matrix1);
   s21_create_matrix(3, 3, &matrix2);
-  s21_create_matrix(3, 3, &result);
   int ret = s21_sum_matrix(&matrix1, &matrix2, &result);
-  ck_assert_int_eq(ret, 1);
+  ck_assert_int_eq(ret, 2);
   s21_remove_matrix(&result);
   s21_remove_matrix(&matrix1);
   s21_remove_matrix(&matrix2);
 }
 END_TEST
 
-// START_TEST(tc_sum_matrix_5) {
-//   matrix_t matrix1, matrix2, result;
-//   s21_create_matrix(-1, 3, &matrix1);
-//   s21_create_matrix(-1, 3, &matrix2);
-//   int ret = s21_sum_matrix(&matrix1, &matrix2, &result);
-//   ck_assert_int_eq(ret, 2);
-// }
-// END_TEST
+START_TEST(tc_sum_matrix_5) {
+  matrix_t matrix1, matrix2, result;
+  s21_create_matrix(-1, 3, &matrix1);
+  s21_create_matrix(-1, 3, &matrix2);
+  int ret = s21_sum_matrix(&matrix1, &matrix2, &result);
+  ck_assert_int_eq(ret, 1);
+}
+END_TEST
 
 // <=== TEST CASES: s21_sub_matrix ===>
 
@@ -293,7 +292,6 @@ START_TEST(tc_sub_matrix_3) {
   matrix_t matrix1, matrix2, result;
   s21_create_matrix(2, 3, &matrix1);
   s21_create_matrix(3, 3, &matrix2);
-  s21_create_matrix(3, 3, &result);
   int ret = s21_sub_matrix(&matrix1, &matrix2, &result);
   ck_assert_int_eq(ret, 2);
   s21_remove_matrix(&result);
@@ -305,11 +303,10 @@ END_TEST
 START_TEST(tc_sub_matrix_4) {
   matrix_t matrix1, matrix2, result;
   matrix1.matrix = NULL;
-  // s21_create_matrix(2, 3, &matrix1);
+  s21_create_matrix(2, 3, &matrix1);
   s21_create_matrix(3, 3, &matrix2);
-  s21_create_matrix(3, 3, &result);
   int ret = s21_sub_matrix(&matrix1, &matrix2, &result);
-  ck_assert_int_eq(ret, 1);
+  ck_assert_int_eq(ret, 2);
   s21_remove_matrix(&result);
   s21_remove_matrix(&matrix1);
   s21_remove_matrix(&matrix2);
@@ -427,7 +424,6 @@ START_TEST(tc_mult_matrix_2) {
   matrix_t matrix1, matrix2, result;
   s21_create_matrix(2, 3, &matrix1);
   s21_create_matrix(4, 3, &matrix2);
-  s21_create_matrix(3, 3, &result);
   int ret = s21_mult_matrix(&matrix1, &matrix2, &result);
   ck_assert_int_eq(ret, 2);
   s21_remove_matrix(&result);
@@ -440,7 +436,6 @@ START_TEST(tc_mult_matrix_3) {
   matrix_t matrix1, matrix2, result;
   matrix1.matrix = NULL;
   s21_create_matrix(3, 3, &matrix2);
-  s21_create_matrix(3, 3, &result);
   int ret = s21_mult_matrix(&matrix1, &matrix2, &result);
   ck_assert_int_eq(ret, 1);
   s21_remove_matrix(&result);
@@ -808,7 +803,6 @@ END_TEST
 START_TEST(tc_inverse_matrix_3) {
   matrix_t matrix1, result;
   matrix1.matrix = NULL;
-  s21_create_matrix(3, 3, &result);
   int ret = s21_inverse_matrix(&matrix1, &result);
   ck_assert_int_eq(ret, 1);
   s21_remove_matrix(&result);
@@ -878,7 +872,7 @@ Suite *ts_sum_matrix() {
   tcase_add_test(test_case, tc_sum_matrix_2);
   tcase_add_test(test_case, tc_sum_matrix_3);
   tcase_add_test(test_case, tc_sum_matrix_4);
-  // tcase_add_test(test_case, tc_sum_matrix_5);
+  tcase_add_test(test_case, tc_sum_matrix_5);
 
   suite_add_tcase(suite, test_case);
 
