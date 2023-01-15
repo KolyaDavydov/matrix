@@ -28,9 +28,19 @@ gcov_report: test
 	genhtml -o report report.info
 	open ./report/index.html
 
-# valgrind:
-# 	$(CC) $(CFLAGS) $(LDFLAGS) $(LIBSOURCES) test_valgrind.c -o vtests_run
-# 	sh valgrind.sh ./vtests_run
+# необходимо для цели test_docker
+valgrind:
+	$(CC) $(CFLAGS) $(LDFLAGS) $(LIBSOURCES) tests_valgrind.c -o vtests_run
+	sh valgrind.sh ./vtests_run
+
+test_docker: clean
+	sh ./run.sh
+
+check_style:
+	cp ../materials/linters/.clang-format .clang-format
+	clang-format -n s21_matrix.c
+	rm .clang-format
+
 
 rebuild: clean all
 
@@ -49,6 +59,7 @@ clean:
         unit-test \
         vtests_run \
 		run \
+		valgrind \
 		gcov \
 		report/ \
 		report.info
